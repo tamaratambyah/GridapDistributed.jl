@@ -14,6 +14,11 @@ function TransientMultiFieldFESpace(spaces::Vector{<:DistributedSingleFieldFESpa
 end
 
 # Functions for transient FE Functions
+TransientFETools.TransientFEOperatorsFromWeakForm = Union{
+  TransientFETools.TransientFEOperatorFromWeakForm,
+  TransientFETools.TransientRKFEOperatorFromWeakForm,
+  TransientFETools.TransientIMEXRKFEOperatorFromWeakForm,
+  TransientFETools.TransientEXRKFEOperatorFromWeakForm}
 
 function ODETools.allocate_jacobian(
   op::TransientFETools.TransientFEOperatorFromWeakForm,
