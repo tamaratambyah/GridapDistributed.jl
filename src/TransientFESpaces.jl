@@ -16,7 +16,7 @@ end
 # Functions for transient FE Functions
 
 function ODETools.allocate_jacobian(
-  op::TransientFETools.TransientFEOperatorFromWeakForm,
+  op::TransientFETools.TransientFEOperatorsFromWeakForm,
   t0::Real,
   duh::Union{DistributedCellField,DistributedMultiFieldFEFunction},
   cache)
@@ -27,7 +27,7 @@ end
 
 function ODETools.jacobians!(
   A::AbstractMatrix,
-  op::TransientFETools.TransientFEOperatorFromWeakForm,
+  op::TransientFETools.TransientFEOperatorsFromWeakForm,
   t::Real,
   xh::TransientDistributedCellField,
   γ::Tuple{Vararg{Real}},
@@ -38,29 +38,7 @@ function ODETools.jacobians!(
   A
 end
 
-## separated for EX-RK
-function ODETools.allocate_jacobian(
-  op::TransientFETools.TransientEXRKFEOperatorFromWeakForm,
-  t0::Real,
-  duh::Union{DistributedCellField,DistributedMultiFieldFEFunction},
-  cache)
-  _matdata_jacobians = TransientFETools.fill_initial_jacobians(op,t0,duh)
-  matdata = _vcat_distributed_matdata(_matdata_jacobians)
-  allocate_matrix(op.assem_t,matdata)
-end
 
-function ODETools.jacobians!(
-  A::AbstractMatrix,
-  op::TransientFETools.TransientEXRKFEOperatorFromWeakForm,
-  t::Real,
-  xh::TransientDistributedCellField,
-  γ::Tuple{Vararg{Real}},
-  cache)
-  _matdata_jacobians = TransientFETools.fill_jacobians(op,t,xh,γ)
-  matdata = _vcat_distributed_matdata(_matdata_jacobians)
-  assemble_matrix_add!(A,op.assem_t, matdata)
-  A
-end
 
 function _vcat_distributed_matdata(_matdata)
   term_to_cellmat = map(a->a[1],local_views(_matdata[1]))
