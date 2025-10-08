@@ -44,6 +44,9 @@ export with_ghost, no_ghost
 
 export redistribute
 
+export get_face_gids
+export get_isboundary_face
+
 include("PArraysExtras.jl")
 
 include("BlockPartitionedArrays.jl")
