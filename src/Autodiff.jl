@@ -101,12 +101,12 @@ for (op,_op) in ((:gradient,:_gradient),(:jacobian,:_jacobian))
   end
 end
 
-function MultiField._combine_contributions(op::Function,terms,fuh::DistributedDomainContribution)
-  local_terms = map(local_views(fuh),local_views.(terms)...) do fuh,terms...
-    MultiField._combine_contributions(op,terms,fuh)
-  end
-  DistributedDomainContribution(local_terms)
-end
+# function MultiField._combine_contributions(op::Function,terms,fuh::DistributedDomainContribution)
+#   local_terms = map(local_views(fuh),local_views.(terms)...) do fuh,terms...
+#     MultiField._combine_contributions(op,terms,fuh)
+#   end
+#   DistributedDomainContribution(local_terms)
+# end
 
 # Distributed counterpart of: src/Arrays/Autodiff.jl
 # autodiff_array_xxx
