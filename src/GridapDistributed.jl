@@ -32,6 +32,7 @@ import LinearAlgebra: det, tr, cross, dot, ⋅, diag
 import Base: inv, abs, abs2, *, +, -, /, adjoint, transpose, real, imag, conj, getproperty, propertynames
 import Gridap.Fields: grad2curl
 import Gridap.CellData: Interpolable
+import Gridap.Geometry: restrict
 
 export FullyAssembledRows
 export SubAssembledRows
